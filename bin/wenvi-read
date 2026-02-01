@@ -1,0 +1,25 @@
+# #!/usr/bin/env python3
+import sys
+from pathlib import Path
+import os
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+
+from shared.logger import logger
+from python.domain.utils import display_dialog
+from python.domain.read_form import read_form
+
+
+def main() -> None:
+    try:
+        WENVI_HOME = os.getenv("WENVI_HOME", "no home")
+        read_form()
+    except Exception as exception:
+        logger.error(getattr(exception, "stack", repr(exception)))
+        display_dialog(str(exception))
+
+
+if __name__ == "__main__":
+    logger.init()
+    main()

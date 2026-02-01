@@ -1,0 +1,5 @@
+-- Add wenvi's Neovim plugin path to runtimepath
+vim.opt.runtimepath:append(vim.fn.expand '/path/to/wenvi_home/editor/nvim')
+
+-- Load the wenvi plugin
+require 'wenvi'

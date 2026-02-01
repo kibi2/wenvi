@@ -1,0 +1,10 @@
+-- Command to launch your editor.
+-- If using Neovim via WezTerm, use this:
+editor = "open -na WezTerm --args start --always-new-process -- zsh -c 'nvim {TEXT_FILE}'"
+
+-- If using GUI version of Neovim, uncomment this line instead:
+-- editor = "nvim-qt --listen {TEXT_FILE}"
+
+-- Specify where to store text, JSON, and log files.
+-- Default is "~/.cache/wenvi" if not set.
+-- dataHome = "/tmp/"

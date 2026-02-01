@@ -1,0 +1,5 @@
+local wenvi_config = require("wenvi_config")
+
+package.path = package.path .. ";" .. wenvi_config.home .. "/platforms/macos/hammerspoon/?/init.lua"
+
+require("wenvi")

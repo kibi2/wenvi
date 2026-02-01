@@ -1,0 +1,13 @@
+return {
+    -- Wenvi installation root directory
+    home = "/path/to/wenvi_home",
+
+    -- Path to Wenvi executables (home/bin)
+    path = "/path/to/wenvi_home/bin",
+
+    -- Logger output level: error | info | debug | trace
+    log_level = "error",
+
+    -- Logger output file
+    log_file = "/tmp/wenvi.log",
+}
