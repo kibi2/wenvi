@@ -1,16 +1,26 @@
 # wenvi
 
-Edit browser text areas using Neovim. Copy & paste is automated.
+Edit browser editable content using Neovim.
+Copy & paste is fully automated.
+
+**wenvi** temporarily extracts the content of a focused editable element
+(textareas, inputs, or contenteditable regions),
+opens it in Neovim, and writes the result back when you finish editing.
+
+No browser extensions.
+No manual copy & paste.
+Just Neovim, outside the browser.
 
 ## Features
 
-* Edit text in Neovim and sync back to the browser automatically.
-* Saves edits in `dataHome` (default: `~/.cache/wenvi`) for search or diff.
-* Organizes files by domain with filenames including page title.
+* Edit browser editable elements (textarea, input, contenteditable) in Neovim.
+* Automatically sync edits back to the browser on exit.
+* Saves edit buffers in `dataHome` (default: `~/.cache/wenvi`) for search or diff.
+* Organizes files by domain, with filenames including page titles.
 
 ## Requirements
 
-* macOS, Neovim, Hammerspoon, Chromium browser, Python toml module
+* macOS, Neovim, Hammerspoon, Chromium-based browser, Python (toml module)
 
 ## Installation
 
