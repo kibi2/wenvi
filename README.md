@@ -31,7 +31,8 @@ mkdir -p ~/.config/wenvi/
 cp examples/config.toml.example ~/.config/wenvi/config.toml
 ```
 
-> Edit the paths inside wenvi_config.lua to match your environment.
+> Edit the paths inside `wenvi_config.lua` to match your environment.
+> Also, adjust the contents of `config.toml` as needed for your setup.
 
 Neovim init example:
 
