@@ -71,7 +71,8 @@ def prepare_json_and_text_files(
     data_home = Path(get_data_home()) / editable["hostName"]
     data_home.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    base_name = safe_filename(f"{timestamp}_{editable['title']}.wenvi")
+    base_name = safe_filename(f"{timestamp}_{editable['title']}")
+    base_name = base_name + ".wenvi"
     text_file = data_home / f"{base_name}.txt"
     json_file = data_home / f"{base_name}.json"
     log_file = data_home / f"{base_name}.log"
