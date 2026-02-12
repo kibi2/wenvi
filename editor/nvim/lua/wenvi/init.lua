@@ -2,7 +2,7 @@
 local M = {}
 
 function M.setup()
-	vim.g.wenvi_version = "0.1"
+	vim.g.wenvi_version = "0.1.0"
 
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		desc = "Wenvi: BufWritePost",
