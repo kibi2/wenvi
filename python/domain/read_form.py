@@ -15,6 +15,7 @@ from python.platform.platform_contract import DispatchResult
 from python.platform.platform_contract import DispatchRequest
 from python.platform.platform_dispatcher import dispatch
 from python.domain.utils import display_dialog
+from python.domain.utils import setStatus
 
 
 def read_form() -> None:
@@ -134,6 +135,28 @@ def launch_editor(cmd: str):
     child = Popen(cmd, shell=True, env=env)
     return child
 
+def get_open_editables(
+        editable: DispatchResult, n_latest: int = 5
+    ) -> list[Path]:
+    assert "hostName" in editable, "hostName must be present"
+    assert "title" in editable, "title must be present"
+    data_home = Path(get_data_home()) / editable["hostName"]
+    json_wild = f"*_{safe_filename(editable['title'])}.wenvi.json"
+    candidates = sorted(
+        data_home.glob(json_wild),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+    open_files: list[Path] = []
+    for json_file in candidates[:n_latest]:
+        try:
+            with open(json_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if data.get("status") == "open":
+                open_files.append(json_file)
+        except Exception:
+            continue
+    return open_files
 
 def confirm_double_boot(editable) -> bool:
     open_path = is_editable_open(editable)
@@ -149,29 +172,15 @@ or Cancel to continue editing in Wenvi.
     )
     logger.debug("[confirm] result= ", result)
     assert "result" in result, "result must be present"
-    return result["result"] == "ok"
-
+    if result["result"] == "ok":
+        for json_file in get_open_editables(editable):
+            setStatus(str(json_file), "close")
+        return True
+    return False
 
 def is_editable_open(editable: DispatchResult, n_latest: int = 5) -> Optional[Path]:
-    assert "hostName" in editable, "hostName must be present"
-    assert "title" in editable, "title must be present"
-    data_home = Path(get_data_home()) / editable["hostName"]
-    json_wild = f"*_{safe_filename(editable['title'])}.wenvi.json"
-    candidates = sorted(
-        data_home.glob(json_wild), key=lambda p: p.stat().st_mtime, reverse=True
-    )
-
-    for json_file in candidates[:n_latest]:
-        try:
-            with open(json_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            if data.get("status") == "open":
-                return json_file
-        except Exception:
-            continue
-
-    return None
-
+    open_files = get_open_editables(editable, n_latest)
+    return open_files[0] if open_files else None
 
 if __name__ == "__main__":
     read_form()
