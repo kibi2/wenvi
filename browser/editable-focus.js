@@ -16,6 +16,13 @@ function focusRequestedEditable(request) {
   }
 
   focusEditableElement(editableElement);
+
+  if (!isElementInViewport(editableElement)) {
+    editableElement.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
   return buildOkResult();
 }
 

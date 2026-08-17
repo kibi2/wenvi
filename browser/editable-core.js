@@ -36,15 +36,15 @@ function isEditableElement(element) {
   }
 
   if (element instanceof HTMLElement && element.isContentEditable) {
-    return isElementInViewport(element);
+    return true
   }
 
   if (element instanceof HTMLTextAreaElement) {
-    return isElementInViewport(element);
+    return true
   }
 
   if (isTextLikeInput(element)) {
-    return isElementInViewport(element);
+    return true
   }
 
   return false;
@@ -126,7 +126,10 @@ function findBestEditableElement() {
   try {
     candidates = Array.from(
       document.querySelectorAll('textarea, input, [contenteditable="true"]')
-    ).filter(isEditableElement);
+    ).filter(
+      (element) =>
+        isEditableElement(element) && isElementInViewport(element)
+    );
   } catch {
     return null;
   }
